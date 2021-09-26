@@ -26,7 +26,7 @@ def checkRegNoFormat(regNo):
     if len(regNo
            ) == 13 and regNo[2] == '-' and regNo[5] == '-' and regNo[8] == '-':
         for i in [0, 1, 6, 7]:
-            if 65 <= regNo[i] <= 90:
+            if 'A' <= regNo[i] <= 'Z':
                 pass
             else:
                 return False
@@ -156,6 +156,7 @@ def regNoForDriverAge(age):
 # Parameters(stored as individual word in 'words' list) given in line/command will be passed to function.
 # Assuming the format of commands will always be same, syntax checks for command are ignored,
 # and parameters from line are extracted using hard-coded indices. (Parameters are stored in 'words' list)
+# Also, checking the validity of registration number, age, slot using functions.
 
 
 def mainFunc(line):
@@ -167,37 +168,55 @@ def mainFunc(line):
     # Create Parking Lot
     if 'Create_parking_lot' in words and len(words) == 2:
         slotSize = int(words[-1])
-        createParkingLot(slotSize)
+        if checkIntNoFormat(slotSize):
+            createParkingLot(slotSize)
+        else:
+            print('Invalid Input')
 
     # Park the car
     elif 'Park' in words and len(slots) and len(words) == 4:
         regNo = words[1]
         age = int(words[-1])
-        parkCar(regNo, age)
+        if checkRegNoFormat(regNo) and checkIntNoFormat(age):
+            parkCar(regNo, age)
+        else:
+            print('Invalid Input')
 
     # Vacate slot
     elif 'Leave' in words and len(slots) and len(records) and len(
             words) == 2 and 1 <= int(words[-1]) <= len(slots):
         slot = int(words[-1]) - 1
-        vactateSlot(slot)
+        if checkIntNoFormat(slot):
+            vactateSlot(slot)
+        else:
+            print('Invalid Input')
 
     # Get Slot No for given driver's age
     elif 'Slot_numbers_for_driver_of_age' in words and len(slots) and len(
             words) == 2:
         age = int(words[-1])
-        slotForAge(age)
+        if checkIntNoFormat(age):
+            slotForAge(age)
+        else:
+            print('Invalid Input')
 
     # Get Slot No for given Vehicle Registration Number
     elif 'Slot_number_for_car_with_number' in words and len(slots) and len(
             words) == 2:
         regNo = words[-1]
-        slotForRegNo(regNo)
+        if checkRegNoFormat(regNo):
+            slotForRegNo(regNo)
+        else:
+            print('Invalid Input')
 
     # Get Vehicle Registration Number for given driver's age
     elif 'Vehicle_registration_number_for_driver_of_age' in words and len(
             slots) and len(words) == 2:
         age = int(words[-1])
-        regNoForDriverAge(age)
+        if checkIntNoFormat(age):
+            regNoForDriverAge(age)
+        else:
+            print('Invalid Input')
 
     # Any other input will be invalid
     else:
