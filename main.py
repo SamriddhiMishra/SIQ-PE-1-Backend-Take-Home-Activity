@@ -182,20 +182,20 @@ def mainFunc(line):
         vactateSlot(slot)
 
     # Get Slot No for given driver's age
-    elif 'Slot_numbers_for_driver_of_age' in words and len(records) and len(
+    elif 'Slot_numbers_for_driver_of_age' in words and len(slots) and len(
             words) == 2:
         age = int(words[-1])
         slotForAge(age)
 
     # Get Slot No for given Vehicle Registration Number
-    elif 'Slot_number_for_car_with_number' in words and len(records) and len(
+    elif 'Slot_number_for_car_with_number' in words and len(slots) and len(
             words) == 2:
         regNo = words[-1]
         slotForRegNo(regNo)
 
     # Get Vehicle Registration Number for given driver's age
     elif 'Vehicle_registration_number_for_driver_of_age' in words and len(
-            records) and len(words) == 2:
+            slots) and len(words) == 2:
         age = int(words[-1])
         regNoForDriverAge(age)
 
